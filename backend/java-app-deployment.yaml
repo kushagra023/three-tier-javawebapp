@@ -18,4 +18,16 @@ spec:
         image: kushagraag/threetierwebapp-backend:latest
         ports:
         - containerPort: 8080
+        volumeMounts:
+        - name: config-volume
+          mountPath: /etc/config
+        - name: backend-storage
+          mountPath: /data
+      volumes:
+      - name: config-volume
+        configMap:
+          name: java-app-config
+      - name: backend-storage
+        persistentVolumeClaim:
+          claimName: backend-pvc
 
